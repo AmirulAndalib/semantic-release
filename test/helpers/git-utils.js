@@ -98,7 +98,7 @@ export async function gitCommits(messages, execaOptions) {
 /**
  * Get the list of parsed commits since a git reference.
  *
- * @param {String} [from] Git reference from which to seach commits.
+ * @param {String} [from] Git reference from which to search commits.
  * @param {Object} [execaOpts] Options to pass to `execa`.
  *
  * @return {Array<Object>} The list of parsed commits.
@@ -240,7 +240,7 @@ export async function gitTagHead(tagName, execaOptions) {
  * Get the first commit sha referenced by the tag `tagName` in the remote repository.
  *
  * @param {String} repositoryUrl The repository remote URL.
- * @param {String} tagName The tag name to seach for.
+ * @param {String} tagName The tag name to search for.
  * @param {Object} [execaOpts] Options to pass to `execa`.
  *
  * @return {String} The sha of the commit associated with `tagName` on the remote repository.
@@ -315,7 +315,7 @@ export async function rebase(ref, execaOptions) {
  * @param {Object} [execaOpts] Options to pass to `execa`.
  */
 export async function gitAddNote(note, ref, execaOptions) {
-  await execa("git", ["notes", "--ref", GIT_NOTE_REF, "add", "-m", note, ref], execaOptions);
+  await execa("git", ["notes", "--ref", `${GIT_NOTE_REF}-${ref}`, "add", "-m", note, ref], execaOptions);
 }
 
 /**
@@ -325,5 +325,5 @@ export async function gitAddNote(note, ref, execaOptions) {
  * @param {Object} [execaOpts] Options to pass to `execa`.
  */
 export async function gitGetNote(ref, execaOptions) {
-  return (await execa("git", ["notes", "--ref", GIT_NOTE_REF, "show", ref], execaOptions)).stdout;
+  return (await execa("git", ["notes", "--ref", `${GIT_NOTE_REF}-${ref}`, "show", ref], execaOptions)).stdout;
 }
